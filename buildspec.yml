@@ -9,3 +9,8 @@ phases:
   build:
     commands:
       - mvn verify sonar:sonar -Dsonar.projectKey=devsecopsapplication -Dsonar.organization=devsecopsapplication -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$TOKEN
+      - sleep 5
+	    - |-
+	      quality_status=$(curl -s -u $TOKEN: https://sonarcloud.io/api/qualitygates/project_status?projectKey=devsecopsapplication | jq -r '.projectStatus.status')
+	      echo "SonarCloud ananlysisStatus is $quality_status";
+	      if [ $quality_status = "ERROR" ] ; then exit 1;fi

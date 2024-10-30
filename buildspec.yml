@@ -2,6 +2,7 @@ version: 0.2
 env:
   secrets-manager:
     TOKEN: firstSecret:tokenForSonar
+    SNYK_TOKEN: secondSecret:tokenForSnyk
 phases:
   install:
     runtime-versions:
@@ -19,8 +20,7 @@ phases:
       - |-
             apt-get update
             apt-get -y install maven
-            SNYK_TOKEN=
-            export SNYK_TOKEN
+            export $SNYK_TOKEN
             mvn snyk:test -fn
 
 # DAST Scan using OWASP ZAP

@@ -9,16 +9,10 @@ phases:
   install:
     runtime-versions:
       java: latest
+  build:
     commands:
       # Grant execute permissions to the Gradle wrapper script
       - chmod +x ./gradlew
-      
-      # Install necessary packages for OWASP ZAP
-      - apt-get update
-      - apt-get -y install wget default-jdk
-
-  build:
-    commands:
       # Static Application Security Test (SAST) using SonarCloud
       - ./gradlew build -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=devsecopsapplication -Dsonar.projectKey=devsecopsapplication -Dsonar.login=$TOKEN sonar
 
@@ -27,6 +21,9 @@ phases:
       - ./gradlew snyk-test
 
       # Dynamic Application Security Scan (DAST) using OWASP ZAP
+      - apt-get update
+      - apt-get -y install wget
+      - apt-get -y install default-jdk
       - wget https://github.com/zaproxy/zaproxy/releases/download/v2.15.0/ZAP_2.15.0_Linux.tar.gz
       - tar -xvf ZAP_2.15.0_Linux.tar.gz
       - cd ZAP_2.15.0

@@ -39,3 +39,7 @@ to next java run.*
 
 ### Snyk UI
 ![Snyk UI Reachable Vulnerabilities](UI_reachable.png)
+
+
+
+![OvamAI Pull Request Reviews](https://img.shields.io/OvamAI/reviews/Harpreetsingh21/DEVsecopsApplication)
